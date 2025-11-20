@@ -150,7 +150,7 @@
   </style>
 </head>
 <body>
-  <!-- Background music (replace song.mp3 with your actual file name if different) -->
+  <!-- Background music (change song.mp3 if your file has a different name) -->
   <audio id="bg-music">
     <source src="song.mp3" type="audio/mpeg" />
     Your browser doesn’t support the audio tag.
@@ -276,42 +276,32 @@
     // Button for new quote
     document.getElementById("new-quote-btn").addEventListener("click", showRandomQuote);
 
-    // === 4. BACKGROUND MUSIC AUTOPLAY FROM OFFSET ===
-    const MUSIC_START_TIME = 43; // seconds into the song – change this if you want!
+    // === 4. BACKGROUND MUSIC: START ON FIRST TAP/CLICK FROM 43 SECONDS ===
+    const MUSIC_START_TIME = 43; // seconds into the song
     const music = document.getElementById("bg-music");
 
-    function tryStartMusic() {
+    function startMusicOnce() {
       if (!music) return;
 
-      const playFromOffset = () => {
-        try {
-          music.currentTime = MUSIC_START_TIME;
-        } catch (e) {
-          // Some browsers might not let us set this before metadata is loaded – it's fine
-        }
-
-        const playPromise = music.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(() => {
-            // Autoplay blocked – wait for first user interaction
-            const startOnFirstClick = () => {
-              music.play().catch(() => {});
-              document.removeEventListener("click", startOnFirstClick);
-            };
-            document.addEventListener("click", startOnFirstClick, { once: true });
-          });
-        }
-      };
-
-      if (music.readyState >= 2) {
-        // Metadata is loaded, safe to set currentTime
-        playFromOffset();
-      } else {
-        music.addEventListener("loadedmetadata", playFromOffset, { once: true });
+      // Try to jump to 43s into the track
+      try {
+        music.currentTime = MUSIC_START_TIME;
+      } catch (e) {
+        // If this fails (metadata not loaded yet), it'll just start from the beginning
       }
+
+      music.play().catch(() => {
+        // If it still fails, ignore quietly
+      });
+
+      // Remove listeners so we only try once
+      document.removeEventListener("click", startMusicOnce);
+      document.removeEventListener("touchstart", startMusicOnce);
     }
 
-    window.addEventListener("load", tryStartMusic);
+    // First interaction anywhere on the page starts the music
+    document.addEventListener("click", startMusicOnce);
+    document.addEventListener("touchstart", startMusicOnce);
   </script>
 </body>
 </html>
