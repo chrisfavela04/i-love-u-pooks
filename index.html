@@ -142,9 +142,20 @@
       font-size: 0.75rem;
       color: #b093a5;
     }
+
+    /* Hide the audio element – it just plays in the background */
+    #bg-music {
+      display: none;
+    }
   </style>
 </head>
 <body>
+  <!-- Background music (replace song.mp3 with your actual file name if different) -->
+  <audio id="bg-music">
+    <source src="song.mp3" type="audio/mpeg" />
+    Your browser doesn’t support the audio tag.
+  </audio>
+
   <div class="card">
     <div class="heart left">♥</div>
     <div class="heart right">♥</div>
@@ -264,6 +275,43 @@
 
     // Button for new quote
     document.getElementById("new-quote-btn").addEventListener("click", showRandomQuote);
+
+    // === 4. BACKGROUND MUSIC AUTOPLAY FROM OFFSET ===
+    const MUSIC_START_TIME = 43; // seconds into the song – change this if you want!
+    const music = document.getElementById("bg-music");
+
+    function tryStartMusic() {
+      if (!music) return;
+
+      const playFromOffset = () => {
+        try {
+          music.currentTime = MUSIC_START_TIME;
+        } catch (e) {
+          // Some browsers might not let us set this before metadata is loaded – it's fine
+        }
+
+        const playPromise = music.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            // Autoplay blocked – wait for first user interaction
+            const startOnFirstClick = () => {
+              music.play().catch(() => {});
+              document.removeEventListener("click", startOnFirstClick);
+            };
+            document.addEventListener("click", startOnFirstClick, { once: true });
+          });
+        }
+      };
+
+      if (music.readyState >= 2) {
+        // Metadata is loaded, safe to set currentTime
+        playFromOffset();
+      } else {
+        music.addEventListener("loadedmetadata", playFromOffset, { once: true });
+      }
+    }
+
+    window.addEventListener("load", tryStartMusic);
   </script>
 </body>
 </html>
