@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>I’ve Loved You For...</title>
+  <title>For My Pooks 💕</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
@@ -71,6 +71,11 @@
       line-height: 1.3;
     }
 
+    .days-line {
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
     .timer span {
       display: inline-block;
       margin: 2px 4px;
@@ -134,8 +139,8 @@
     <div class="heart left">♥</div>
     <div class="heart right">♥</div>
 
-    <h1>I’ve loved you for</h1>
-    <p class="subtitle">…every one of these moments & many more to come 💕</p>
+    <h1>I’ve been in love with you for</h1>
+    <p class="subtitle">Every single one of these moments has been a W for me, Pooks 💗</p>
 
     <div class="timer" id="timer">
       <!-- Filled by JavaScript -->
@@ -146,18 +151,17 @@
       <div class="quote-author" id="quote-author"></div>
     </div>
 
-    <button id="new-quote-btn">New little reminder ✨</button>
+    <button id="new-quote-btn">Another little reminder ✨</button>
 
     <p class="footer-note">
-      (Made with lots of love and a little bit of code.)
+      If you’re reading this, I am definitely thinking about you right now.
     </p>
   </div>
 
   <script>
-    // === 1. SET YOUR ANNIVERSARY DATE HERE ===
+    // === 1. OUR ANNIVERSARY DATE ===
     // Format: new Date("YYYY-MM-DDTHH:MM:SS")
-    // Example: June 1, 2023 at midnight
-    const anniversary = new Date("2023-06-01T00:00:00");
+    const anniversary = new Date("2025-03-29T00:00:00");
 
     // === 2. TIMER LOGIC ===
     function updateTimer() {
@@ -188,7 +192,9 @@
 
       const timerEl = document.getElementById("timer");
       timerEl.innerHTML = `
-        <span>${days} days</span>
+        <div class="days-line">
+          I’ve been with you for <strong>${days}</strong> days 💗
+        </div>
         <span>${hours} hours</span>
         <span>${minutes} minutes</span>
         <span>${seconds} seconds</span>
@@ -202,36 +208,36 @@
     // === 3. QUOTES ===
     const quotes = [
       {
-        text: "I love you not only for what you are, but for what I am when I am with you.",
-        author: "– Roy Croft"
+        text: "No matter how today went, I’m still the luckiest person because I get to call you mine.",
+        author: "– Chris"
       },
       {
-        text: "In case you forgot today: you are capable, you are important, and you are so loved.",
-        author: "– From me, always"
+        text: "In case your brain is being mean today: you are brilliant, beautiful, and so, so loved.",
+        author: "– Your built-in hype man"
       },
       {
-        text: "You are my favorite notification, my best decision, and my safest home.",
-        author: "– Me, being honest"
+        text: "You’re my favorite person to tell good news to, bad news to, and absolutely pointless stories to.",
+        author: "– Me, oversharing happily"
       },
       {
-        text: "I’ll choose you. Over and over. Without pause, without a doubt, in a heartbeat.",
-        author: "– Every single day"
+        text: "Even on the stressful days, you are the best part of my day.",
+        author: "– Every single day, honestly"
       },
       {
-        text: "You have already survived 100% of your worst days. You can handle whatever comes next.",
+        text: "You have already survived 100% of your hardest days. I’m here for all the next ones, hand in hand.",
         author: "– Your #1 fan"
       },
       {
-        text: "Love is not about grand gestures; it’s the million tiny moments that say, ‘I’ve got you.’",
-        author: "– Us"
+        text: "Love isn’t just big moments. It’s all the little texts, calls, and looks that say, ‘I’ve got you.’",
+        author: "– Us 💕"
       },
       {
-        text: "No matter how today went, I am proud of you just for being you.",
-        author: "– Me, always"
+        text: "If you could see yourself the way I see you, you’d never doubt yourself for a second.",
+        author: "– The guy who is obsessed with you"
       },
       {
-        text: "You are more than enough, exactly as you are right now.",
-        author: "– A gentle reminder"
+        text: "You don’t have to do anything spectacular today. Existing as you is already enough.",
+        author: "– A gentle reminder from me"
       }
     ];
 
